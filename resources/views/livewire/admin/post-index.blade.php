@@ -1,7 +1,8 @@
 <div class="card">
     <div class="card-header">
-        <input class="form-control" type="search" name="" id="">
+        <input wire:model="search" class="form-control" placeholder="Enter the post's name" type="search" name="" id="">
     </div>
+    @if ($posts->count())
     <div class="card-body">
         <table class="table table-striped">
             <thead>
@@ -36,5 +37,22 @@
     </div>
     <div class="card-footer">
         {{$posts->links()}}
-    </div>
+    </div>  
+    
+    @else
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        
+                        <th class="float-right">
+                            <a class="btn btn-success" href="{{ route('admin.posts.create') }}">Create Post</a>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+            <strong class="mt-4">No posts match the query</strong>
+        </div>
+    @endif
+    
 </div>

@@ -90,7 +90,7 @@ class CategoryController extends Controller
 
        $category->update($request->all());
 
-        return redirect()->route('admin.categories.edit', $category )->with('info', "$category->name category updated successfuly!");
+        return redirect()->route('admin.categories.index', $category )->with('info-edit', "$category->name category updated successfuly!");
     }
 
     /**

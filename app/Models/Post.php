@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+    protected $guarded = ['id', 'created_at', 'updated_at'];
     //Relacion muchos a uno user
     public function user(){
         return $this->belongsTo(User::class);

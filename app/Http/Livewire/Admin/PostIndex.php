@@ -12,11 +12,20 @@ class PostIndex extends Component
     use WithPagination;
 
     protected $paginationTheme = "bootstrap";
+    public $search;
 
     public function render()
     {
-        $posts = Post::where('user_id', auth()->user()->id)->latest('id')->paginate();
+        $posts = Post::where('user_id', auth()->user()->id)
+        ->where('name', 'LIKE', '%'.$this->search.'%')
+        ->latest('id')
+        ->paginate();
 
         return view('livewire.admin.post-index', compact('posts'));
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 }

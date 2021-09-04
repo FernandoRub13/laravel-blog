@@ -85,7 +85,7 @@ class  TagController extends Controller
 
         $tag->update($request->all());
 
-        return redirect()->route('admin.tags.edit', $tag)->with('info', "$tag->name tag updated successfuly!");
+        return redirect()->route('admin.tags.index', $tag)->with('info-edit', "$tag->name tag updated successfuly!");
     }
 
     /**

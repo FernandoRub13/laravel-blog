@@ -24,6 +24,7 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
+            
             {!! Form::submit('Create category', ['class' => 'btn btn-success']) !!}
             {!! Form::close() !!}
         </div>
