@@ -14,6 +14,8 @@ class PostIndex extends Component
     protected $paginationTheme = "bootstrap";
     public $search;
 
+    
+
     public function render()
     {
         $posts = Post::where('user_id', auth()->user()->id)

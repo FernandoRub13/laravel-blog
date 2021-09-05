@@ -226,21 +226,21 @@ return [
 
     'menu' => [
         // Navbar items:
-        [
-            'type'         => 'navbar-search',
-            'text'         => 'search',
-            'topnav_right' => true,
-        ],
-        [
-            'type'         => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
+        // [
+        //     'type'         => 'navbar-search',
+        //     'text'         => 'search',
+        //     'topnav_right' => true,
+        // ],
+        // [
+        //     'type'         => 'fullscreen-widget',
+        //     'topnav_right' => true,
+        // ],
 
         // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
+        // [
+        //     'type' => 'sidebar-menu-search',
+        //     'text' => 'search',
+        // ],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
@@ -250,32 +250,55 @@ return [
             'text'        => 'Dashboard',
             'route'         => 'admin.home',
             'icon'        => 'fas fa-fw fa-tachometer-alt',
+            'can' => 'admin.home'
             // 'label'       => 4,
             // 'label_color' => 'success',
         ],
-        ['header' => 'ADMINISTRATOR'],
+        [
+            'text'        => 'Users',
+            'route'         => 'admin.users.index',
+            'icon'        => 'fas fa-fw fa-users',
+            'can' => 'admin.users.index'
+
+            // 'label'       => 4,
+            // 'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Role\'s list',
+            'route'         => 'admin.roles.index',
+            'icon'        => 'fas fa-fw fa-users-cog',
+            'can' => 'admin.users.index'
+
+            // 'label'       => 4,
+            // 'label_color' => 'success',
+        ],
+        // ['header' => 'ADMINISTRATOR'],
         [
             'text' => 'Categories',
             'route'  => 'admin.categories.index',
             'icon' => 'fab fa-fw fa-buffer',
+            'can' => 'admin.categories.index',
             'active' => ['admin/categories*']
         ],
         [
             'text' => 'Tags',
             'route'  => 'admin.tags.index',
             'icon' => 'fas fa-fw fa-tags',
+            'can' => 'admin.tags.index',
             'active' => ['admin/tags*']
         ],
         
-        ['header' => 'BLOG OPTIONS'],
+        // ['header' => 'BLOG OPTIONS'],
         [
             'text'       => 'Post\'s list',
             'icon' => 'far fa-fw fa-clipboard',
+            'can' => 'admin.posts.index',
             'route'        => 'admin.posts.index',
         ],
         [
             'text'       => 'Create new post',
             'icon' => 'fas fa-fw fa-plus-circle',
+            'can' => 'admin.posts.create',
             'route'        => 'admin.posts.create',
         ],
     ],

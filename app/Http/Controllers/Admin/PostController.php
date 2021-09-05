@@ -8,11 +8,20 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
+
 
 use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.posts.index')->only('index');
+        $this->middleware('can:admin.posts.create')->only('create', 'store');
+        $this->middleware('can:admin.posts.edit')->only('edit', 'update');
+        $this->middleware('can:admin.posts.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -48,7 +57,7 @@ class PostController extends Controller
 
 
 
-           $post = Post::create($request->all());
+        $post = Post::create($request->all());
 
         if ($request->file('file')) {
             $url = Storage::put('posts', $request->file('file'));
@@ -57,11 +66,13 @@ class PostController extends Controller
             ]);
         }
 
-            if ($request->tags) {
-                
-                $post->tags()->attach($request->tags);
-            }
-            return redirect()->route('admin.posts.index')->with('info', $request->name.' post created succcessfuly!');
+
+        if ($request->tags) {
+
+            $post->tags()->attach($request->tags);
+        }
+        Cache::flush();
+        return redirect()->route('admin.posts.index')->with('info', $request->name . ' post created succcessfuly!');
     }
 
     /**
@@ -103,13 +114,13 @@ class PostController extends Controller
 
         if ($request->file('file')) {
             $url = Storage::put('posts', $request->file('file'));
-            
+
             if ($post->image) {
                 Storage::delete($post->image->url);
                 $post->image->update([
                     'url' => $url
                 ]);
-            }else {
+            } else {
                 $post->image()->create([
                     'url' => $url
                 ]);
@@ -119,7 +130,9 @@ class PostController extends Controller
         if ($request->tags) {
             $post->tags()->sync($request->tags);
         }
-            return redirect()->route('admin.posts.index')->with('info-edit', $request->name.' post updated succcessfuly!');
+        Cache::flush();
+
+        return redirect()->route('admin.posts.index')->with('info-edit', $request->name . ' post updated succcessfuly!');
     }
 
     /**
@@ -133,6 +146,7 @@ class PostController extends Controller
         $this->authorize('author', $post);
         $name = $post->name;
         $post->delete();
-        return redirect()->route('admin.posts.index')->with('info-delete', $name.' post deleted!');
+        Cache::flush();
+        return redirect()->route('admin.posts.index')->with('info-delete', $name . ' post deleted!');
     }
 }

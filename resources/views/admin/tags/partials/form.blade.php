@@ -1,15 +1,16 @@
-<div class="form-group">
-    {!! Form::label('name', 'Name', []) !!}
-    {!! Form::text('name', null, ['autocomplete' => 'off', 'class' => 'form-control', 'placeholder' => 'Enter the name of the tag', 'id' => 'nameTag', 'onInput' => 'slugify()']) !!}
-
-    @error('name')
-        <span class="text-danger">{{ $message }}</span>
-    @enderror
-</div>
-<div class="form-group">
-    {!! Form::label('slug', 'Slug', []) !!}
-    {!! Form::text('slug', null, ['class' => 'form-control disabled', 'placeholder' => 'Enter the slug of the tag', 'id' => 'slugTag', 'readonly']) !!}
-    @error('slug')
-        <span class="text-danger">{{ $message }}</span>
-    @enderror
-</div>
+{!! Form::label('name', 'Name') !!}
+{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Enter the role\'s name ']) !!}
+@error('name')
+    <span class="text-danger">
+        {{ $message }}
+    </span>
+@enderror
+<h6 class="mt-2"><strong>Permission's list</strong></h2>
+    @foreach ($permissions as $permission)
+        <div>
+            <label>
+                {!! Form::checkbox('permissions[]', $permission->id, null, ['class' => 'mr-1']) !!}
+                {{ $permission->description }}
+            </label>
+        </div>
+    @endforeach
